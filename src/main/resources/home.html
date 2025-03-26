@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+  <link rel="icon" type="image/png" href="https://i.imgur.com/leQGK3u.png"/>
+
+</head>
+<body>
+    <h1> To-Do List </h1>
+    <h1 th:text="${message}">This is the fallback message.</h1>
+
+    <button id="LoginButton">Click Me</button>
+    <script>
+        document.getElementById("actionButton").addEventListener("click", function() {
+            // Send an AJAX request to the backend to trigger an action
+            fetch('/triggerAction', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show the response from the backend
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+
+</body>
+
+</html>
