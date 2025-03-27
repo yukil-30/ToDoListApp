@@ -1,4 +1,4 @@
-package _1.finalproj.demo;
+package com.ToDoListApp;
 
 import java.util.Arrays;
 
@@ -9,10 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class FinalProjectApplication {
+public class ToDoListApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinalProjectApplication.class, args);
+		SpringApplication.run(ToDoListApp.class, args);
 	}
 
 	@Bean
