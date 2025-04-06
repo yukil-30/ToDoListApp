@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Dashboard</title></head>
 <body>
-    <h2>Welcome, <span th:text="${full-name}"></span>!</h2>
-    <a href="/">Go to Home</a>
+    <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
+
+    <h2>Your Tasks:</h2>
+    <ul>
+        <li th:each="task : ${tasks}" th:text="${task.title} + ' - ' + ${task.description}"></li>
+    </ul>
 </body>
 </html>

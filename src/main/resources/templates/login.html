@@ -5,23 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+
+    <link rel="stylesheet" href="/css/login.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 </head>
 
 <body>
     
+    <div class="outer-container"> 
 
-    <form id="login-form" action="/login" method="post">
-        <label for="email">Your email</label><br>
-            <input text="email" id="email" name="email" size="20" required>
-            <br>
+        <h2 id="app-name">Get It Done</h2>
 
-        <label for="password">Your password</label><br>
-            <input text="password" id="password" name="password" size="20" required>
-            <br>
+        <h1 id="welcome-text">Welcome</h1>
+
+
+            <form id="login-form-container" action="/login" method="post">
+
+                <div class="input-container">
+
+                    <label for="email">Your email</label>
+                    <input type="text" text="email" id="email" name="email" required>
+
+                </div>
+    
+
+                <div class="input-container">
+                    <label for="password">Your password</label>
+                    <input type="text" text="password" id="password" name="password" required>
+                </div>
         
-        <button type="button">New?</button>
-        <button type="submit">Login</button>
-    </form>
+                
+                <div class="button-container">
+
+                    <a href="/register"><button id="register" type="button">New?</button></a>
+
+                    <button type="submit" id="login">Login</button>
+
+                </div>
+        
+            
+        
+            </form>
+
+    </div>
+    
+
+    <p th:if="${error}" style="color: red;">Error: <span th:text="${error}"></span></p>
 
 
 </body>

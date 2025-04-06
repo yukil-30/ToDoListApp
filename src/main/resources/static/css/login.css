@@ -1,0 +1,154 @@
+html, body {
+    height: 100%; /* Ensure the body and HTML take up the full viewport height */
+    margin: 0;    /* Remove default margin */
+    padding: 0;   /* Remove default padding */
+    font-family: 'Inter';
+}
+
+
+body {
+    background: linear-gradient(to bottom right, #CB3CFF, #7F25FB);
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.outer-container{
+    width: 700px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 75px;
+    
+}
+
+#app-name {
+    width: 700px;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+
+#welcome-text {
+    width: 700px;
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+
+}
+
+input {
+    width: 474px;
+    height: 45px;
+}
+
+input[type=text] {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+  }
+
+
+
+#login-form-container {
+    display: flex;
+    width: 600px;
+    height: 400px;
+    margin-top: 25px;
+
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.input-container {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-direction: column;
+    width: 500px;
+
+}
+
+#email {
+    border: 1px solid black ;
+}
+
+#password {
+    border: 1px solid black;
+}
+
+
+#register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+
+    background: linear-gradient(to bottom right, #CB3CFF, #7F25FB);
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    height: 20px;
+
+}
+
+#login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px;
+
+    background: linear-gradient(to bottom right, #CB3CFF, #7F25FB);
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    height: 20px;
+
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; 
+    justify-content: space-between; /* pushes buttons to far ends */
+    align-items: center;
+    width: 500px;
+}
+
+/* .button-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(to bottom right, #CB3CFF, #7F25FB);
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    height: 20px;
+    
+} */
+
+.button-container a {
+    text-decoration: none;
+}
