@@ -36,6 +36,12 @@ public class Task {
 
     @Column()
     private String description;
+   
+    //i dont know if im gonna mess something up so im just gonna write stuff in comments for now.
+    //private int deadline_year;
+    //private int deadline_month;
+    //private int deadline_date;
+
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
