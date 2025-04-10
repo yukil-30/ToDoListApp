@@ -16,7 +16,7 @@ public class PageController {
 		return "login";
 	}
 
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"}) //right now haven't planned it out too much but just generic localhost should lead to home page
     public String homePage(Model model) {
         model.addAttribute("message", "Welcome to the Home Page!");
         return "home";  // Resolves to /src/main/resources/templates/home.html
