@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @org.springframework.stereotype.Controller
 public class PageController {
 
-    @GetMapping("/login")
-	public String login() {
-		return "login";
-	}
 
     @GetMapping({"/", "/home"}) //right now haven't planned it out too much but just generic localhost should lead to home page
     public String homePage(Model model) {
@@ -26,5 +22,10 @@ public class PageController {
     public String showRegistrationPage(Model model) {
         return "register";
     }
+    
+    @GetMapping("/login")
+	public String login() {
+		return "login";
+	}
 
 }

@@ -3,10 +3,19 @@
 <head><title>Dashboard</title></head>
 <body>
     <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
+	<br>
+	<form action="http://localhost:8080/idk"><!---This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form-->
+	<button id="RegisterButton">Add a Task</button>
+	</form>
 
+	<br>
     <h2>Your Tasks:</h2>
     <ul>
-        <li th:each="task : ${tasks}" th:text="${task.title} + ' - ' + ${task.description}"></li>
+        <!--- <li th:each="task : ${tasks}" th:text="${task.title} + ' - ' + ${task.description}"></li> --->
+		<li th:each="task : ${tasks}">
+		<span th:text="${task.title + ' - ' + task.description}"></span>
+		<button type="button">Delete</button> 
+		</li>
     </ul>
 </body>
 </html>

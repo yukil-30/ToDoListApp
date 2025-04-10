@@ -35,7 +35,13 @@ public class UserController {
         }
 
         userService.createUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
-        
+        // wouldnt it make sense to return the custom url created? cause you're creating the account and sending them to their created dashboard
+        /*      session.setAttribute("email", email);
+
+                // Build the redirect URL using first and last name
+                String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
+                return "redirect:" + customURL;
+	*/
         return "login";
     }
 

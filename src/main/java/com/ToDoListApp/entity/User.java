@@ -116,7 +116,10 @@ public class User {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
-    
+    /*public void addTask(Task task) {
+        this.tasks.add(Task);
+    }
+	*/
     @Override
     public String toString() {
         return firstName + " " + lastName;
