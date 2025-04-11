@@ -4,7 +4,7 @@
 <body>
     <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
 	<br>
-	<form action="http://localhost:8080/idk"><!---This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form-->
+	<form action="http://localhost:8080//{username}/dashboard/create"><!---This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form. where there's a form that we create a post request to add the task to the users-->
 	<button id="RegisterButton">Add a Task</button>
 	</form>
 
@@ -17,5 +17,6 @@
 		<button type="button">Delete</button> 
 		</li>
     </ul>
+	<button type="button">Delete All Tasks</button> 
 </body>
 </html>

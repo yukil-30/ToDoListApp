@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-	<link rel="icon" type="image/png" href="https://www.pngmart.com/files/8/List-PNG-Transparent-Picture.png"/> <!---random image i got-->
+	<link rel="icon" type="image/png" href="https://www.pngmart.com/files/8/List-PNG-Transparent-Picture.png"/> <!---random image i got. Should probably put it/another image in the css for everyone-->
 	<style>
 
 		h1{
@@ -46,7 +46,10 @@
 </head>
 
 <body>
+    <div id = maintitle>
     <h1> Welcome to Your To-Do List Future!</h1>
+    <p> This To-Do app is a small project utilizing the Java skills we learned throughout our semester of CSC 221. It can help anyone no matter your position in life. As a student, it will help you manage your time properly and be able to avoid procrastinating when lots of homework is piled onto you. As an everyday adult, you will be able to map out the deadlines of the tasks your work has given to you. And those are just the most obvious examples of uses you might have for a To-Do list.</p>
+    </div>
 	</br>
     <h2 th:text="${message}">This is the fallback message.</h2> <!-- Just a test of having the controller send specific content -->
 	</br>
