@@ -133,13 +133,22 @@ public class UserController {
         return "error"; // User not found
 
     }
-    /*@PostMapping("/{username}/create/task") //not finished
+    @PostMapping("/{username}/create/task") //not finished
     public String AddNewTask(@PathVariable String username, @RequestParam String title, @RequestParam String desc, Model model, HttpSession session) {
-		//no clue the way databases work lol
-    	Task current = new Task(title, desc);
+    	String email = (String) session.getAttribute("email");
+    	if (email == null) return "redirect:/login";
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+	User user = userOpt.get();
+	}
+	else {
+	return "redirect:/login";
+	}
+    	Task current = new Task(user, title, desc);
+	//no clue the way databases work lol
         return "redirect:"+username + "/dashboard";
     }
-	*/
+	
 
     
 }
