@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ToDoListApp.entity.Task;
 import com.ToDoListApp.entity.User;
 import com.ToDoListApp.repository.UserRepository;
 import com.ToDoListApp.service.UserService;
@@ -102,7 +104,7 @@ public class UserController {
         return "error"; // User not found
 
     }
-    @GetMapping("/${username}/create/task")
+    @GetMapping("/{username}/create/task")
     public String Createtask(@PathVariable String username, HttpSession session, Model model) {
 
         String email = (String) session.getAttribute("email");
@@ -131,7 +133,13 @@ public class UserController {
         return "error"; // User not found
 
     }
-		
+    /*@PostMapping("/{username}/create/task") //not finished
+    public String AddNewTask(@PathVariable String username, @RequestParam String title, @RequestParam String desc, Model model, HttpSession session) {
+		//no clue the way databases work lol
+    	Task current = new Task(title, desc);
+        return "redirect:"+username + "/dashboard";
+    }
+	*/
 
     
 }

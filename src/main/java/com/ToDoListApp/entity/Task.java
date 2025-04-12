@@ -62,11 +62,14 @@ public class Task {
 
     // Constructor (w/o user)
     public Task(String title, String description) {
-        this.title = this.description;
+        this.title = title;
+        this.description = description;
     }
 
     // Constructor (with user, w/o description)
     public Task(User user, String title) {
+    	this.user = user;
+        this.title = title;
 
     }
 
