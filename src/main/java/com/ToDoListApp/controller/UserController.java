@@ -102,5 +102,36 @@ public class UserController {
         return "error"; // User not found
 
     }
+    @GetMapping("/${username}/create/task")
+    public String Createtask(@PathVariable String username, HttpSession session, Model model) {
 
+        String email = (String) session.getAttribute("email");
+
+        if (email != null) {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+
+            User user = userOpt.get();
+
+            // Double-check the path variable matches the logged-in user
+            String expectedUsername = user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase();
+
+            if (!username.equals(expectedUsername)) {
+                model.addAttribute("error", "Unauthorized access");
+                return "error";
+            }
+
+            model.addAttribute("user", user);
+            model.addAttribute("tasks", user.getTasks());
+            return "create_task";
+            
+        }
+        }
+        System.out.println("ERROR!");
+        return "error"; // User not found
+
+    }
+		
+
+    
 }

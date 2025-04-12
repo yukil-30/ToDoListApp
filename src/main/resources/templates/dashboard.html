@@ -4,9 +4,7 @@
 <body>
     <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
 	<br>
-	<form action="http://localhost:8080/{username}/dashboard/create"><!---This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form. where there's a form that we create a post request to add the task to the users-->
-	<button id="RegisterButton">Add a Task</button>
-	</form>
+	<button onclick = "goToNewTask()" id="NewTaskButton">Add a Task</button>
 
 	<br>
     <h2>Your Tasks:</h2>
@@ -18,5 +16,20 @@
 		</li>
     </ul>
 	<button type="button">Delete All Tasks</button> 
+	<script>//need to use html to dynamicly create a link
+	  function goToNewTask() {
+
+		const pathParts = window.location.pathname.split('/');
+
+	    // username is at index 1: /{username}/dashboard
+	    const username = pathParts[1];
+
+	    // Redirect
+	    if (username) {
+	      window.location.href = `/${username}/create/task`;
+	    }
+	  }
+	</script>
+
 </body>
 </html>
