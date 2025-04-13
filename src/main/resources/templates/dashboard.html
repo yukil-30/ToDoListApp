@@ -49,38 +49,38 @@
 	<div class="add-task-modal-container hidden" id="add-task-modal-container" >
 		<div class="task-modal-content">
 
-			<div class="add-task-form-button-container">
-				<input type="submit" id="addTaskButton" value="Add Task" class="inter-font">
-				<button type="button" id="close-add-task-modal"><img src="/src/close_icon.png" alt="close form"></button>
-			</div>
-			
 
 			<form th:action="@{/tasks}" method="post" class="add-task-modal-form">
+				<div class="add-task-form-button-container">
+					<button type="submit" id="addTaskButton" class="inter-font">Add Task </button>
+					<button type="button" id="close-add-task-modal"><img src="/src/close_icon.png" alt="close form"></button>
+				</div>
+
+
 				<label for="taskName">Task Name</label>
-				<input type="text" id="taskName" name="taskname" placeholder="Name of Task">
+				<input type="text" id="taskName" name="title" placeholder="Name of Task" required>
 	
 				<label for="taskDescription">Task Description</label>
 				<textarea 
 					id="taskDescription" 
-					name="taskdescription" 
+					name="description" 
 					placeholder="Enter task description..."
-					minlength="0"
-					maxlength="100"
 					rows="5"
-					cols="33">
-				</textarea>
+					required
+					></textarea>
 				  
 				
 				<label for="priority">Priority</label>
-				<select id="priority" name="priority">
-				<option value="high">High</option>
-				<option value="medium">Medium</option>
-				<option value="low">Low</option>
-				<option value="normal">Normal</option>
+				<select id="priority" name="priority" required>
+				<option value="" disabled selected>Select Priority</option>
+				<option value="HIGH">High</option>
+				<option value="MEDIUM">Medium</option>
+				<option value="LOW">Low</option>
+				<option value="NORMAL">Normal</option>
 				</select>
 				
 					<label for="dueDate">Due Date:</label>
-					<input type="date" id="dueDate" name="duedate">
+					<input type="date" id="dueDate" name="dueDate" required>
 	
 			</form>
 		</div>
