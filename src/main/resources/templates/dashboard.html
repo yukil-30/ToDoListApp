@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Dashboard</title>
-
-	<link rel="stylesheet" href="/css/dashboard.css">
-
-</head>
+<head><title>Dashboard</title></head>
 <body>
     <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
 	<br>
-	<button type="button" id="open-add-task-modal">+ Add Task</button>
+	<button onclick = "goToNewTask()" id="NewTaskButton">Add a Task</button>
 
 	<br>
     <h2>Your Tasks:</h2>
@@ -20,58 +15,21 @@
 		<button type="button">Delete</button> 
 		</li>
     </ul>
-	<!-- <button type="button">Delete All Tasks</button>  -->
+	<button type="button">Delete All Tasks</button> 
+	<script>//need to use html to dynamicly create a link
+	  function goToNewTask() {
 
+		const pathParts = window.location.pathname.split('/');
 
+	    // username is at index 1: /{username}/dashboard
+	    const username = pathParts[1];
 
-
-	<!-- The pop up form to add task -->
-	<div class="add-task-modal-container hidden" id="add-task-modal-container" >
-		<div class="task-modal-content">
-
-			<div class="add-task-form-button-container">
-				<input type="submit" id="addTaskButton" value="Add Task" class="inter-font">
-				<button type="button" id="close-add-task-modal"><img src="/src/close_icon.png" alt="close form"></button>
-			</div>
-			
-
-			<form class="add-task-modal-form">
-				<label for="taskName">Task Name</label>
-				<input type="text" id="taskName" name="taskname" placeholder="Name of Task">
-	
-				<label for="taskDescription">Task Description</label>
-				<textarea 
-					id="taskDescription" 
-					name="taskdescription" 
-					placeholder="Enter task description..."
-					minlength="0"
-					maxlength="100"
-					rows="5"
-					cols="33">
-				</textarea>
-				  
-				
-				<label for="priority">Priority</label>
-				<select id="priority" name="priority">
-				<option value="high">High</option>
-				<option value="medium">Medium</option>
-				<option value="low">Low</option>
-				<option value="normal">Normal</option>
-				</select>
-				
-				<form action="/action_page.php">
-					<label for="dueDate">Due Date:</label>
-					<input type="date" id="dueDate" name="duedate">
-				</form>
-	
-			</form>
-		</div>
-		
-
-	</div>
-
-	<!-- Javascript Code -->
-	<script src="/javascript/dashboard.js"></script>
+	    // Redirect
+	    if (username) {
+	      window.location.href = `/${username}/create/task`;
+	    }
+	  }
+	</script>
 
 </body>
 </html>

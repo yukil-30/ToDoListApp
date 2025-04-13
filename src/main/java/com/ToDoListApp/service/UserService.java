@@ -18,14 +18,11 @@ public class UserService {
     UserRepository userRepository;
 
 
-    // New User and store to database
     public User createUser(String firstName, String lastName, String email, String password) {
 
         User newUser = new User(firstName, lastName, email, password);
 
-        // Save new user information to database
         return userRepository.save(newUser);
     }
-
 
 }
