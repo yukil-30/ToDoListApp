@@ -9,7 +9,7 @@ const closeAddTaskModal = document.querySelector('#close-add-task-modal')
 
 openAddTaskModal.addEventListener('click', () => {
 
-    window.location.href='/add-task.html'
+    //window.location.href='/add-task.html' //this is adding a task and it's all in that one subpage so shouldnt really do this right?
     addTaskModal.classList.remove('hidden');
     console.log('Should show modal')
 })
