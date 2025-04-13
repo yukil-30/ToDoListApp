@@ -10,6 +10,8 @@ import com.ToDoListApp.entity.Task;
 import com.ToDoListApp.entity.User;
 import com.ToDoListApp.repository.TaskRepository;
 import com.ToDoListApp.repository.UserRepository;
+import com.ToDoListApp.service.TaskService;
+import com.ToDoListApp.service.UserService;
 
 import java.time.LocalDate;
 
@@ -23,6 +25,8 @@ public class TaskController {
     UserRepository userRepository;
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
+    public TaskService taskService;
 
     // posting to different thing without actually being a html thing users can access
     @PostMapping("/tasks")
@@ -33,7 +37,7 @@ public class TaskController {
 
     	// Save task to database 
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
-        taskRepository.save(task);
+        taskService.addTask(user,task);
 
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
