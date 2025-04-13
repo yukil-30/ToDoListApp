@@ -41,7 +41,15 @@ public class TaskController {
 
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
-        String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
-        return "redirect:" + customURL;
+        return MakeDashboardURL(user);
     }
+    //@PostMapping("/delete_all_tasks")
+    //public String deleteAllTasks(HttpSession session, RedirectAttributes redirectAttributes){
+    //return MakeDashboardURL(user);
+	//}
+    private String MakeDashboardURL(User user) {
+        String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
+    	return "redirect:" + customURL;
+    }
+    
 }
