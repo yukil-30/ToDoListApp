@@ -5,8 +5,24 @@
 
 	<link rel="stylesheet" href="/css/dashboard.css">
 	<link rel="icon" type="image/png" href="/src/app_icon.png"/> 
+	<style> 
+		.alert {
+		    padding: 15px;
+		    margin: 20px 0;
+		    border: 1px solid transparent;
+		    border-radius: 4px;
+		}
+		.alert-success {
+		    background-color: #dff0d8;
+		    border-color: #d6e9c6;
+		    color: #3c763d;
+		}
+	</style>
 </head>
 <body>
+	<div th:if="${message}" class="alert alert-success">
+	    <span th:text="${message}"></span>
+	</div>
     <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
 	<br>
 	<!-- <form action="http://localhost:8080//{username}/dashboard/create"><-This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form. where there's a form that we create a post request to add the task to the users-->
