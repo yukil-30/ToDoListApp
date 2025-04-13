@@ -21,6 +21,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class TaskController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TaskRepository taskRepository;
 
     // posting to different thing without actually being a html thing users can access
     @PostMapping("/tasks")
@@ -29,9 +31,9 @@ public class TaskController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-    	// Save task to database
-        Task task = new Task(title, description);
-        //TaskRepository.save(task);
+    	// Save task to database 
+        Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
+        taskRepository.save(task);
 
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
