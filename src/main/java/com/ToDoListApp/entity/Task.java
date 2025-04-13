@@ -5,6 +5,7 @@
 
 package com.ToDoListApp.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -42,6 +43,10 @@ public class Task {
     //private int deadline_month;
     //private int deadline_date;
 
+    // Has the format year/month/date
+    @Column(nullable=false)
+    private LocalDate dueDate;
+
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
@@ -55,7 +60,7 @@ public class Task {
     // Constructor (no argument)
     public Task() {}
 
-    // Constructor (w/o user, w/o descrition)
+    // Constructor (w/o user, w/o description)
     public Task(String title) {
         this.title = title;
     }
@@ -73,11 +78,26 @@ public class Task {
 
     }
 
+    // Constructor (w/o user)
+    public Task(String title, String description, LocalDate dueDate) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+    }
+
     // Constructor (with user)
     public Task(User user, String title, String description) {
         this.user = user;
         this.title = title;
         this.description = description;
+    }
+
+    // Constructor (with everything)
+    public Task(User user, String title, String description, LocalDate dueDate) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
     }
 
     // Getters and Setters
@@ -110,6 +130,15 @@ public class Task {
         this.description = description;
     }
 
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    // Do not want to modify the created time for task so only a getter
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

@@ -4,7 +4,7 @@
  */
 
 package com.ToDoListApp.entity;
-//should we import task to here?
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -118,17 +118,6 @@ public class User {
     }
     /*public void addTask(Task task) {
         this.tasks.add(Task);
-     	int size = this.tasks.size();
-     	for (int i = 1; i <size; i++){ //sort it using insert sort cause lazy
-     	Task key = this.tasks.at(i);
-     	j = i -1
-     	while(j >= 0 && this.tasks.at(j) > key) { //this check should be changed into the task itself priority check
-     	this.tasks.set(j + 1, this.tasks.at(j));
-     	j = j-1;
-     	}
-     	this.tasks.set(j + 1, key);
-     	}
-        
     }
 	*/
     @Override
