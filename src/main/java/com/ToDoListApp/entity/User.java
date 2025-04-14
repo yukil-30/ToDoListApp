@@ -6,6 +6,7 @@
 package com.ToDoListApp.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +46,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Task> tasks; 
+    private List<Task> tasks = new ArrayList<>(); 
 
 
     // Constructors (no arguments)
@@ -116,10 +117,10 @@ public class User {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
-    /*public void addTask(Task task) {
-        this.tasks.add(Task);
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
-	*/
+	
     @Override
     public String toString() {
         return firstName + " " + lastName;

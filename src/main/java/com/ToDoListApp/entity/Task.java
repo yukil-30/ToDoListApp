@@ -18,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -38,10 +39,6 @@ public class Task {
     @Column()
     private String description;
    
-    //i dont know if im gonna mess something up so im just gonna write stuff in comments for now.
-    //private int deadline_year;
-    //private int deadline_month;
-    //private int deadline_date;
 
     // Has the format year/month/date
     @Column(nullable=false)
@@ -147,8 +144,9 @@ public class Task {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
 }

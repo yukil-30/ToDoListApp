@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
+
 import com.ToDoListApp.entity.Task;
 import com.ToDoListApp.entity.User;
 import com.ToDoListApp.repository.TaskRepository;
@@ -30,6 +32,7 @@ public class TaskController {
 
     // posting to different thing without actually being a html thing users can access
     @PostMapping("/tasks")
+    @Transactional
     public String handleTaskSubmission(@RequestParam String title,@RequestParam String description, @RequestParam String priority, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, RedirectAttributes redirectAttributes) {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
@@ -37,7 +40,8 @@ public class TaskController {
 
     	// Save task to database 
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
-        taskService.addTask(user,task);
+        user.addTask(task);
+        taskRepository.save(task);
 
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
