@@ -40,9 +40,10 @@ public class TaskController {
 
     	// Save task to database 
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
+        task.setPriority(priority);
         user.addTask(task);
-        taskRepository.save(task);
-
+        userRepository.save(user);
+        
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
         return MakeDashboardURL(user);

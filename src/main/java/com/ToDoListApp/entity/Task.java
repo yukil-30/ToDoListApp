@@ -44,6 +44,8 @@ public class Task {
     @Column(nullable=false)
     private LocalDate dueDate;
 
+    @Column
+    private String priority;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
@@ -125,6 +127,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public LocalDate getDueDate() {
