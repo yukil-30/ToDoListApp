@@ -38,20 +38,29 @@ public class TaskController {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-    	// Save task to database 
+    	//This saves the task to database by creating it
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
-        task.setPriority(priority);
+        task.setPriority(priority);//this really screwed me
         user.addTask(task);
-        userRepository.save(user);
+        userRepository.save(user); //cause of cascading we can save the user again
         
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
         return MakeDashboardURL(user);
     }
-    //@PostMapping("/delete_all_tasks")
-    //public String deleteAllTasks(HttpSession session, RedirectAttributes redirectAttributes){
-    //return MakeDashboardURL(user);
-	//}
+    
+    
+    @Transactional
+    @PostMapping("/delete_all_tasks")
+    public String deleteAllTasks(HttpSession session, RedirectAttributes redirectAttributes){
+        String email = (String) session.getAttribute("email");
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        taskRepository.deleteByUser(user); //clearing the user.gettasks.clear would be slower so instead do this
+        redirectAttributes.addFlashAttribute("message", "All Tasks Deleted Successfully!");
+        return MakeDashboardURL(user);
+    }
+    
     private String MakeDashboardURL(User user) {
         String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
     	return "redirect:" + customURL;

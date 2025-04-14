@@ -39,7 +39,9 @@
 		<button type="button">Delete</button> 
 		</li>
     </ul>
-	<button type="button">Delete All Tasks</button> 
+	<form th:action="@{/delete_all_tasks}" method="post" class="delete-all-tasks-modal-form" onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
+	<button type="submit">Delete All Tasks</button> 
+	</form>
 	<!-- <button type="button">Delete All Tasks</button>  -->
 
 
@@ -80,7 +82,7 @@
 				</select>
 				
 					<label for="dueDate">Due Date:</label>
-					<input type="date" id="dueDate" name="duedate" required>
+					<input type="date" id="dueDate" name="duedate" th:value="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" min="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" required>
 	
 			</form>
 		</div>
