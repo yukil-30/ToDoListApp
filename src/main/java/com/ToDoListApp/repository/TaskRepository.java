@@ -19,8 +19,5 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
     // Find Tasks by user entity
     List<Task> findByUser(User user);
     
-    @Modifying
-    @Query("DELETE FROM Task t WHERE t.user = :user")
-    void deleteByUser(@Param("user") User user);
 
 }

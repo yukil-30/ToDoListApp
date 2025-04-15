@@ -1,6 +1,7 @@
 package com.ToDoListApp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import com.ToDoListApp.service.TaskService;
 import com.ToDoListApp.service.UserService;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,9 +42,10 @@ public class TaskController {
 
     	//This saves the task to database by creating it
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
-        task.setPriority(priority);//this really screwed me
+        task.setPriority(priority);//this really screwed me you need all the items put in
         user.addTask(task);
-        userRepository.save(user); //cause of cascading we can save the user again
+        taskRepository.save(task);
+        //userRepository.save(user); //cause of cascading we can save the user again
         
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
@@ -56,11 +59,34 @@ public class TaskController {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        taskRepository.deleteByUser(user); //clearing the user.gettasks.clear would be slower so instead do this
+        user.getTasks().clear();
+        userRepository.save(user);
+        //taskRepository.deleteByUser(user); //clearing the user.gettasks.clear would be slower so instead do this
         redirectAttributes.addFlashAttribute("message", "All Tasks Deleted Successfully!");
         return MakeDashboardURL(user);
     }
     
+    @Transactional
+    @PostMapping("/delete/task/{id}")
+    public String deleteOneTask(@PathVariable UUID id, HttpSession session, RedirectAttributes redirectAttributes){
+        String email = (String) session.getAttribute("email");
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        int taskSize = user.getTasks().size();
+        String name = "";
+        for(int i = 0; i < taskSize; i++) {
+        	if(user.getTasks().get(i).getId().equals(id)) {
+        		name = user.getTasks().get(i).getTitle();
+        		user.getTasks().remove(i);
+        		break;
+        	}
+        }
+        userRepository.save(user);
+        //taskRepository.deleteByUser(user); //this should be something else this
+        redirectAttributes.addFlashAttribute("message", "The Task " + name + " was Deleted Successfully!");
+        return MakeDashboardURL(user);
+    }
+
     private String MakeDashboardURL(User user) {
         String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
     	return "redirect:" + customURL;

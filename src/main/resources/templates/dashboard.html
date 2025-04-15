@@ -35,14 +35,16 @@
     <ul>
         <!--- <li th:each="task : ${tasks}" th:text="${task.title} + ' - ' + ${task.description}"></li> --->
 		<li th:each="task : ${tasks}">
-		<span th:text="${task.title + ' - ' + task.description}"></span>
-		<button type="button">Delete</button> 
+		<span th:text="${task.title + ' - ' + task.description + ' - ' + task.dueDate + ' - ' + task.priority}"></span>
+		<form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+			<!---<input type="hidden" name="_method" value="delete"/> --->
+			<button type="submit">Delete</button> 
+		</form>
 		</li>
     </ul>
 	<form th:action="@{/delete_all_tasks}" method="post" class="delete-all-tasks-modal-form" onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
 	<button type="submit">Delete All Tasks</button> 
 	</form>
-	<!-- <button type="button">Delete All Tasks</button>  -->
 
 
 
