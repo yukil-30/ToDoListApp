@@ -107,6 +107,31 @@ public class TaskController {
 	}
 
 
+
+    @Transactional
+    @PostMapping("/modify/task/{id}")
+	public String modifyTasks(@PathVariable UUID id, @RequestParam String title,@RequestParam String description, @RequestParam String priority, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, Model model) {
+        String email = (String) session.getAttribute("email");
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        int taskSize = user.getTasks().size();
+        Task task = null;
+        for(int i = 0; i < taskSize; i++) {
+        	if(user.getTasks().get(i).getId().equals(id)) { //always happens
+        		task = user.getTasks().get(i);
+        		break;
+        	}
+        }
+        task.setTitle(title);
+        task.setDueDate(duedate);
+        task.setDescription(description);
+        task.setPriority(priority);
+        
+        taskRepository.save(task);
+		return MakeDashboardURL(user);
+	}
+
     private String MakeDashboardURL(User user) {
         String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
     	return "redirect:" + customURL;
