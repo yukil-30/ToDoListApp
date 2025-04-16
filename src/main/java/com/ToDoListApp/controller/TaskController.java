@@ -1,6 +1,7 @@
 package com.ToDoListApp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,9 +88,28 @@ public class TaskController {
         return MakeDashboardURL(user);
     }
 
+    
+    @GetMapping("/modify/task/{id}")
+	public String updateModifiedtask(@PathVariable UUID id, HttpSession session, Model model) {
+        String email = (String) session.getAttribute("email");
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        int taskSize = user.getTasks().size();
+        for(int i = 0; i < taskSize; i++) {
+        	if(user.getTasks().get(i).getId().equals(id)) {
+        		model.addAttribute("task", user.getTasks().get(i));
+        		break;
+        	}
+        }
+
+		return "modify";
+	}
+
+
     private String MakeDashboardURL(User user) {
         String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
     	return "redirect:" + customURL;
     }
-    
+
 }

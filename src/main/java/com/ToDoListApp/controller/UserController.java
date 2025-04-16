@@ -65,10 +65,6 @@ public class UserController {
             }
 
 
-	    //if(user.getTasks.size() == 0 ){
-	    //aka first time or unlucky all deleted, get tasks from database and put them into the class item. This way no need to access database everytime, as long as we delete/create/modify all tasks on the database and the class item at the same time. Saves time i think?
-	    //}
-
 
             model.addAttribute("user", user);
             model.addAttribute("tasks", user.getTasks());

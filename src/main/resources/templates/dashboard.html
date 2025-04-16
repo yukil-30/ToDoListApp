@@ -36,6 +36,9 @@
         <!--- <li th:each="task : ${tasks}" th:text="${task.title} + ' - ' + ${task.description}"></li> --->
 		<li th:each="task : ${tasks}">
 		<span th:text="${task.title + ' - ' + task.description + ' - ' + task.dueDate + ' - ' + task.priority}"></span>
+		<form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
+		    <button type="submit">Edit</button>
+		</form>
 		<form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
 			<!---<input type="hidden" name="_method" value="delete"/> --->
 			<button type="submit">Delete</button> 
