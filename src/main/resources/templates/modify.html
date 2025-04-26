@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Task</title>
+	<link rel="icon" type="image/png" href="/src/app_icon.png"/> <!---random image i got. Should probably put it/another image in the css for everyone-->
+	<link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+	<h1 th:text="'Modify ' + ${task.getTitle()}"></h1>
+    <div class="modify-task-container">
+        <form th:action="@{/modify/task/{id}(id=${task.id})}" method="post">
+   
+            			
+						<label for="taskName">Task Name</label>
+						<input type="text" id="taskName" name="title" th:value="${task.getTitle()}" required>
+
+						<label for="taskDescription">Task Description</label>
+						<textarea 
+							id="taskDescription" 
+							name="description" 
+							th:text="${task.getDescription()}"
+							rows="5"
+							required
+							></textarea>
+
+			<label for="priority">Priority</label>
+			<select id="priority" name="priority" required>
+			th:selected="${opt == task.getPriority()}"></option>
+			<option value="HIGH">High</option>
+			<option value="MEDIUM">Medium</option>
+			<option value="LOW">Low</option>
+			<option value="NORMAL">Normal</option>
+			</select>
+
+				<label for="dueDate">Due Date:</label>
+				<input type="date" id="dueDate" name="duedate" th:value="${#temporals.format(task.getDueDate(), 'yyyy-MM-dd')}" min="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" required>
+
+            
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
