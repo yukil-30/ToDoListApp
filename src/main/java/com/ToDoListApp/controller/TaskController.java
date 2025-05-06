@@ -42,7 +42,7 @@ public class TaskController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
     	//This saves the task to database by creating it
-        Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
+        Task task = new Task(user, title, description, duedate); //im pretty sure the created/modify time is autodone? and idk about id
         user.addTask(task);
         taskRepository.save(task);
         //userRepository.save(user); //cause of cascading we can save the user again
@@ -82,7 +82,6 @@ public class TaskController {
         	}
         }
         userRepository.save(user);
-        //taskRepository.deleteByUser(user); //this should be something else this
         redirectAttributes.addFlashAttribute("message", "The Task " + name + " was Deleted Successfully!");
         return MakeDashboardURL(user);
     }

@@ -1,5 +1,8 @@
 package com.ToDoListApp.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ToDoListApp.entity.Task;
 import com.ToDoListApp.entity.User;
 import com.ToDoListApp.repository.UserRepository;
 import com.ToDoListApp.service.UserService;
@@ -64,10 +68,20 @@ public class UserController {
                 return "error";
             }
 
-
-
+            List<Task> late = new ArrayList<>(); 
+            List<Task> ontime = new ArrayList<>(); 
+            int size = user.getTasks().size();
+            for (int i = 0; i < size; ++i) {
+            	if(user.getTasks().get(i).getDueDate().isBefore(LocalDate.now())) {
+            		late.add(user.getTasks().get(i));
+            	}
+            	else {
+            		ontime.add(user.getTasks().get(i));
+            	}
+            }
             model.addAttribute("user", user);
-            model.addAttribute("tasks", user.getTasks());
+            model.addAttribute("tasks", ontime);
+            model.addAttribute("latetasks", late);
             return "dashboard";
             
         }
