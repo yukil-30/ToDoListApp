@@ -36,14 +36,13 @@ public class TaskController {
     // posting to different thing without actually being a html thing users can access
     @PostMapping("/tasks")
     @Transactional
-    public String handleTaskSubmission(@RequestParam String title,@RequestParam String description, @RequestParam String priority, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String handleTaskSubmission(@RequestParam String title,@RequestParam String description, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, RedirectAttributes redirectAttributes) {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
     	//This saves the task to database by creating it
         Task task = new Task(user, title, description, duedate); //im pretty sure the due date time is autodone? and idk about id
-        task.setPriority(priority);//this really screwed me you need all the items put in
         user.addTask(task);
         taskRepository.save(task);
         //userRepository.save(user); //cause of cascading we can save the user again
@@ -110,7 +109,7 @@ public class TaskController {
 
     @Transactional
     @PostMapping("/modify/task/{id}")
-	public String modifyTasks(@PathVariable UUID id, @RequestParam String title,@RequestParam String description, @RequestParam String priority, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, Model model) {
+	public String modifyTasks(@PathVariable UUID id, @RequestParam String title,@RequestParam String description, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, Model model) {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -126,7 +125,6 @@ public class TaskController {
         task.setTitle(title);
         task.setDueDate(duedate);
         task.setDescription(description);
-        task.setPriority(priority);
         
         taskRepository.save(task);
 		return MakeDashboardURL(user);

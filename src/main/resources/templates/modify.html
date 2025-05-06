@@ -25,14 +25,6 @@
 							required
 							></textarea>
 
-			<label for="priority">Priority</label>
-			<select id="priority" name="priority" required>
-			th:selected="${opt == task.getPriority()}"></option>
-			<option value="HIGH">High</option>
-			<option value="MEDIUM">Medium</option>
-			<option value="LOW">Low</option>
-			<option value="NORMAL">Normal</option>
-			</select>
 
 				<label for="dueDate">Due Date:</label>
 				<input type="date" id="dueDate" name="duedate" th:value="${#temporals.format(task.getDueDate(), 'yyyy-MM-dd')}" min="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" required>
