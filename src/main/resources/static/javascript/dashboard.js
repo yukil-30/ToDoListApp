@@ -1,24 +1,27 @@
 
 
-const addTaskModal = document.querySelector('.add-task-modal-container');
-const openAddTaskModal = document.querySelector('#open-add-task-modal');
-const closeAddTaskModal = document.querySelector('#close-add-task-modal')
+// const addTaskModal = document.querySelector('.add-task-modal-container');
+// const openAddTaskModal = document.querySelector('#open-add-task-modal');
+// const closeAddTaskModal = document.querySelector('#close-add-task-modal')
+
+// console.log("show model: " + addTaskModal)
+// console.log(openAddTaskModal)
+// console.log(closeAddTaskModal)
 
 
+// openAddTaskModal.addEventListener('click', () => {
 
+//     //window.location.href='/add-task.html' //this is adding a task and it's all in that one subpage so shouldnt really do this right?
+//     console.log("Did the thing open?")
+//     addTaskModal.classList.remove('hidden');
+//     console.log('Should show modal')
+// })
 
-openAddTaskModal.addEventListener('click', () => {
-
-    //window.location.href='/add-task.html' //this is adding a task and it's all in that one subpage so shouldnt really do this right?
-    addTaskModal.classList.remove('hidden');
-    console.log('Should show modal')
-})
-
-closeAddTaskModal.addEventListener('click', () => {
-    addTaskModal.classList.add('hidden');
-    windowhistory.pushState({}, '', '')
-    console.log('Should hide modal');
-})
+// closeAddTaskModal.addEventListener('click', () => {
+//     console.log("Did the thing close?")
+//     addTaskModal.classList.add('hidden');
+//     console.log('Should hide modal');
+// })
 
 
 

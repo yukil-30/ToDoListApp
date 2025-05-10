@@ -1,27 +1,26 @@
 package com.ToDoListApp.controller;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 
 import com.ToDoListApp.entity.Task;
 import com.ToDoListApp.entity.User;
 import com.ToDoListApp.repository.TaskRepository;
 import com.ToDoListApp.repository.UserRepository;
 import com.ToDoListApp.service.TaskService;
-import com.ToDoListApp.service.UserService;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 
 @Controller
