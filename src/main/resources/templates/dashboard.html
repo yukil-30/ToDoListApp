@@ -7,13 +7,21 @@
 	<link rel="icon" type="image/png" href="/src/app_icon.png"/> 
 	
 	<style> 
+
 		body {
 			background: linear-gradient(to bottom right, #CB3CFF, #7F25FB);
 			display: flex;
 			justify-content: center;
+			
+		}
+
+		.outer-container {
+			display: flex;
+			height: 100vh;
+			width: 1000px;
+			justify-content: center;
 			flex-direction: column;
-			height: 100%;
-			min-height: 100%;
+
 		}
 
 		#my-task-title{
@@ -23,14 +31,13 @@
 		#dashboard-container{
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
 			width: 900px;
 			height: 200%;
-			padding-top: 10px;
-			padding-left: 10px;
-			padding-right: 10px;
+			padding-top: 30px;
+			padding-left: 30px;
+			padding-right: 30px;
 			background-color: white;
-			border-radius: 5px;
+			border-radius: 25px;
 		}
 
 		#dashboard-box1{
@@ -43,7 +50,7 @@
 		.action-buttons {
 			height: 35px;
 			width: 130px;
-			border-radius: 5px;
+			border-radius: 10px;
 			border-style: none;
 			text-align: center;
 			justify-content: center;
@@ -54,7 +61,7 @@
 		}
 
 		#delete-all-button {
-			background-color: red;
+			background-color: #E53935;
 			
 		}
 
@@ -66,10 +73,110 @@
 
 		}
 
+		
+
+		.task-title-box {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+
+
+
+		.arrow-icon {
+			height: 25px;
+			width: 25px; 
+			object-fit: cover; /* Prevent distortion by maintaining aspect ratio */
+			display: block; /* Remove any extra spacing around the image */
+			pointer-events: none; /* Prevent click events on the image itself */
+			cursor: pointer;
+		}
+
+		.task-title {
+			width: 125px;
+			height: 30px;
+			display: flex;
+			text-align: center;
+			align-items: center;
+			justify-content: center;
+			margin-top: 0px;
+			margin-bottom: 0px;
+			border-radius: 5px;
+			font-size: 15px;
+		}
+
+		#overdue {
+			background-color: #E53935;
+			color: white;
+		}
+
+		#todo {
+			background-color: #B0B0B0;
+			color: white;
+		}
+
+
 		li {
 			display: flex;
 			flex-direction: row;
 
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+
+		table tr {
+			border-bottom: 1pt solid gray;
+			height: 20px;
+			display: flex;
+			align-items: center;
+		}
+
+		table tr th {
+			text-align: left;
+		}
+
+		.delete-task-button {
+			height: 20px;
+			width: 20px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background: none;
+			display: flex; /* Align the image */
+			align-items: center; /* Center the image vertically */
+			justify-content: center; /* Center the image horizontally */
+			cursor: pointer; /* Add pointer cursor for interactivity */
+		}
+
+		.delete-task-button img {
+			height: 100%;
+			width: 100%; 
+			object-fit: cover; /* Prevent distortion by maintaining aspect ratio */
+			display: block; /* Remove any extra spacing around the image */
+			pointer-events: none; /* Prevent click events on the image itself */
+		}
+
+		.edit-task-button {
+			height: 20px;
+			width: 20px;
+			padding: 0;
+			margin: 0;
+			border: none;
+			background: none;
+			display: flex; /* Align the image */
+			align-items: center; /* Center the image vertically */
+			justify-content: center; /* Center the image horizontally */
+			cursor: pointer; /* Add pointer cursor for interactivity */
+		}
+
+		.edit-task-button img {
+			height: 100%;
+			width: 100%; 
+			object-fit: cover; /* Prevent distortion by maintaining aspect ratio */
+			display: block; /* Remove any extra spacing around the image */
+			pointer-events: none; /* Prevent click events on the image itself */
 		}
 
 		.alert {
@@ -103,100 +210,164 @@
 </head>
 <body>
 
-	<div th:if="${message}" class="alert alert-success">
-	    <span th:text="${message}"></span>
-	</div>
-    <h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
-	<br>
-	<!-- <form action="http://localhost:8080//{username}/dashboard/create"><-This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form. where there's a form that we create a post request to add the task to the users-->
-	<!-- <button id="open-add-task-model">+ Add Task</button>
-	</form> -->
+	<div class="outer-container">
 
-	<div id="dashboard-container">
+	
 
-		<div id="dashboard-box1">
+		<div th:if="${message}" class="alert alert-success">
+			<span th:text="${message}"></span>
+		</div>
 
-			<h2 id="my-task-title">My Task:</h2>
+		<h1 th:text="'Welcome, ' + ${user.firstName} + ' ' + ${user.lastName} + '!'"></h1>
 
-			<div class="box1-button-container">
+		<!-- <form action="http://localhost:8080//{username}/dashboard/create"><-This would be the thing you click to create a task and add it in. This could probably be javasscript or just a new subpage with form. where there's a form that we create a post request to add the task to the users-->
+		<!-- <button id="open-add-task-model">+ Add Task</button>
+		</form> -->
 
-			
-				<form th:action="@{/delete_all_tasks}" method="post" class="action-buttons delete-all-tasks-modal-form"  onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
-					<button class="action-buttons" id="delete-all-button" type="submit">Delete All Tasks</button> 
-				</form>
+		<div id="dashboard-container">
 
-				<button type="button" onclick="show_add_task_form()" class="action-buttons" id="open-add-task-modal add-task-button">+ Add Task</button>
-			
+			<div id="dashboard-box1">
+
+				<h2 id="my-task-title">My Task:</h2>
+
+				<div class="box1-button-container">
+
+				
+					<form th:action="@{/delete_all_tasks}" method="post" class="action-buttons delete-all-tasks-modal-form"  onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
+						<button class="action-buttons" id="delete-all-button" type="submit">Delete All Tasks</button> 
+					</form>
+
+					<button type="button" onclick="show_add_task_form()" class="action-buttons" id="open-add-task-modal add-task-button">+ Add Task</button>
+				
+				</div>
+			</div>
+				
+			<div class="task-title-box">
+				<img class="arrow-icon" src="/src/arrow_icon.png" alt="arrow icon">
+				<h3 class="task-title molengo-regular" id="overdue">OVERDUE</h3>
 			</div>
 
-
-
-		</div>
-
-		<h3>Late Tasks!</h3>
-		<ul>
-		<li th:each="latetask : ${latetasks}">
-			<span th:text="${latetask.title + ' - ' + latetask.description + ' - ' + latetask.dueDate}"></span>
-			<form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
-				<button type="submit">Edit</button>
-			</form>
-			<form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
-				<button type="submit">Delete</button> 
-			</form>
-		</li>
-		</ul>
-		<h3>Current Tasks</h3>
-
-		<ul>
-			<li th:each="task : ${tasks}">
-			<span th:text="${task.title + ' - ' + task.description + ' - ' + task.dueDate}"></span>
-			<form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
-				<button type="submit">Edit</button>
-			</form>
-			<form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
-				<button type="submit">Delete</button> 
-			</form>
-			</li>
-		</ul>
-		
-	</div>
-
-
-	
-
-
-
-	<!-- The pop up form to add task -->
-	<div class="add-task-modal-container hidden" id="add-task-modal-container" >
-		<div class="task-modal-content">
-
-
-			<form th:action="@{/tasks}" method="post" class="add-task-modal-form">
-				<div class="add-task-form-button-container">
-					<button type="submit" id="addTaskButton" class="inter-font">Add Task </button>
-					<button type="button" onclick="hide_add_task_form()" id="close-add-task-modal"><img src="/src/close_icon.png" alt="close form"></button>
-				</div>
-
-
-				<label for="taskName">Task Name</label>
-				<input type="text" id="taskName" name="title" placeholder="Name of Task" required>
-	
-				<label for="taskDescription">Task Description</label>
-				<textarea 
-					id="taskDescription" 
-					name="description" 
-					placeholder="Enter task description..."
-					rows="5"
-					required
-					></textarea>
-				  
+			<table style="width: 100%">
+				<thead>
+					<tr>
+						<th style="width: 40%;">Name</th>
+						<th style="width: 40%;">Description</th>
+						<th style="width: 10%;">Due Date</th>
+						<th style="width: 5%;"></th>
+						<th style="width: 5%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="latetask : ${latetasks}">
+						<td style="width: 40%;" th:text="${latetask.title}"></th>
+						<td style="width: 40%;" th:text="${latetask.description}"></th>
+						<td style="width: 10%;" th:text="${latetask.dueDate}"></th>
+						<td style="width: 5%;"><form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
+							<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
+						</form></td>
+						<td style="width: 5%;"><form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+							<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
+						</form></td>
+					</tr>
+				</tbody>
+			</table>
 				
-					<label for="dueDate">Due Date:</label>
-					<input type="date" id="dueDate" name="duedate" th:value="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" min="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" required>
-	
-			</form>
-		</div>
+	<!-- 
+			<ul>
+				<li th:each="latetask : ${latetasks}">
+					<span th:text="${latetask.title + ' - ' + latetask.description + ' - ' + latetask.dueDate}"></span>
+					<form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
+						<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
+					</form>
+					<form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+						<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
+					</form>
+				</li>
+			</ul> -->
+
+			<div class="task-title-box">
+				<img class="arrow-icon" src="/src/arrow_icon.png" alt="arrow icon">
+				<h3 class="task-title molengo-regular" id="todo">TODO</h3>
+			</div>
+
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 40%;">Name</th>
+						<th style="width: 40%;">Description</th>
+						<th style="width: 10%;">Due Date</th>
+						<th style="width: 5%;"></th>
+						<th style="width: 5%"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${tasks}">
+						<td style="width: 40%;" th:text="${task.title}"></th>
+						<td style="width: 40%;" th:text="${task.description}"></th>
+						<td style="width: 10%;" th:text="${task.dueDate}"></th>
+						<td style="width: 5%;"><form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
+							<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
+						</form></td>
+						<td style="width: 5%;"><form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+							<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
+						</form></td>
+					</tr>
+				</tbody>
+			</table>
+
 		
+			<!-- <ul>
+				<li th:each="task : ${tasks}">
+				<span th:text="${task.title + ' - ' + task.description + ' - ' + task.dueDate}"></span>
+				<form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
+					<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
+				</form>
+				<form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+					<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
+				</form>
+				</li>
+			</ul> -->
+			
+		</div>
+
+
+		
+
+
+
+		<!-- The pop up form to add task -->
+		<div class="add-task-modal-container hidden" id="add-task-modal-container" >
+			<div class="task-modal-content">
+
+
+				<form th:action="@{/tasks}" method="post" class="add-task-modal-form">
+					<div class="add-task-form-button-container">
+						<button type="submit" id="addTaskButton" class="inter-font">Add Task </button>
+						<button type="button" onclick="hide_add_task_form()" id="close-add-task-modal"><img src="/src/close_icon.png" alt="close form"></button>
+					</div>
+
+
+					<label for="taskName">Task Name</label>
+					<input type="text" id="taskName" name="title" placeholder="Name of Task" required>
+		
+					<label for="taskDescription">Task Description</label>
+					<textarea 
+						id="taskDescription" 
+						name="description" 
+						placeholder="Enter task description..."
+						rows="5"
+						required
+						></textarea>
+					
+					
+						<label for="dueDate">Due Date:</label>
+						<input type="date" id="dueDate" name="duedate" th:value="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" min="${#temporals.format(#temporals.createToday(), 'yyyy-MM-dd')}" required>
+		
+				</form>
+			</div>
+			
+
+		</div>
 
 	</div>
 
