@@ -23,11 +23,11 @@ import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="users") //links to the supabase table
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO) //auto give a user an id (we'll use for picking the specific user)
     private UUID id;
 
     @Column(nullable=false)
@@ -46,8 +46,8 @@ public class User {
     @Column(updatable=false, nullable=false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("dueDate ASC")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) //link between task and user (user field in task class) 
+    @OrderBy("dueDate ASC") //the list is ordered ascending by the duedate field in the task class
     private List<Task> tasks = new ArrayList<>(); 
 
 
