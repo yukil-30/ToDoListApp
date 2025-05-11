@@ -17,7 +17,6 @@
 
 		.outer-container {
 			display: flex;
-			height: 100vh;
 			width: 1000px;
 			justify-content: center;
 			flex-direction: column;
@@ -34,6 +33,7 @@
 			width: 900px;
 			height: 200%;
 			padding-top: 30px;
+			padding-bottom: 30px;
 			padding-left: 30px;
 			padding-right: 30px;
 			background-color: white;
@@ -128,13 +128,15 @@
 
 		table tr {
 			border-bottom: 1pt solid gray;
-			height: 20px;
 			display: flex;
 			align-items: center;
+			font-family: "Molengo", sans-serif;
+
 		}
 
 		table tr th {
 			text-align: left;
+			font-size: 12px;
 		}
 
 		.delete-task-button {
@@ -177,6 +179,14 @@
 			object-fit: cover; /* Prevent distortion by maintaining aspect ratio */
 			display: block; /* Remove any extra spacing around the image */
 			pointer-events: none; /* Prevent click events on the image itself */
+		}
+
+		.circle {
+			width: 20px; /* Set the width of the circle */
+			height: 20px; /* Set the height of the circle */
+			background-color: #000; /* Set the color of the circle */
+			border-radius: 50%; /* Make it a circle */
+			display: inline-block; /* Ensure it shows inline with text */
 		}
 
 		.alert {
@@ -250,22 +260,26 @@
 			<table style="width: 100%">
 				<thead>
 					<tr>
-						<th style="width: 40%;">Name</th>
-						<th style="width: 40%;">Description</th>
+						<th style="width: 39%;">Name</th>
+						<th style="width: 1%;"></th>
+						<th style="width: 39%;">Description</th>
+						<th style="width: 1%;"></th>
 						<th style="width: 10%;">Due Date</th>
 						<th style="width: 5%;"></th>
 						<th style="width: 5%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="latetask : ${latetasks}">
-						<td style="width: 40%;" th:text="${latetask.title}"></th>
-						<td style="width: 40%;" th:text="${latetask.description}"></th>
-						<td style="width: 10%;" th:text="${latetask.dueDate}"></th>
-						<td style="width: 5%;"><form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
+					<tr style="height: 40px" th:each="latetask : ${latetasks}">
+						<td style="width: 39%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" th:text="${latetask.title}"></td>
+						<td style="width: 1%;"></td>
+						<td style="width: 39%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" th:text="${latetask.description}"></td>
+						<td style="width: 1%;"></td>
+						<td style="width: 10%;" th:text="${latetask.dueDate}"></td>
+						<td style="width: 5%; display: flex; justify-content: center;"><form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
 							<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
 						</form></td>
-						<td style="width: 5%;"><form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+						<td style="width: 5%; display: flex; justify-content: center;"><form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
 							<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
 						</form></td>
 					</tr>
@@ -284,6 +298,7 @@
 					</form>
 				</li>
 			</ul> -->
+			<br>
 
 			<div class="task-title-box">
 				<img class="arrow-icon" src="/src/arrow_icon.png" alt="arrow icon">
@@ -293,22 +308,29 @@
 			<table>
 				<thead>
 					<tr>
-						<th style="width: 40%;">Name</th>
-						<th style="width: 40%;">Description</th>
+						<th style="width: 39%;">Name</th>
+						<th style="width: 1%;"></th>
+						<th style="width: 39%;">Description</th>
+						<th style="width: 1%;"></th>
 						<th style="width: 10%;">Due Date</th>
 						<th style="width: 5%;"></th>
 						<th style="width: 5%"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="task : ${tasks}">
-						<td style="width: 40%;" th:text="${task.title}"></th>
-						<td style="width: 40%;" th:text="${task.description}"></th>
-						<td style="width: 10%;" th:text="${task.dueDate}"></th>
-						<td style="width: 5%;"><form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
+					<tr style="height: 40px" th:each="task : ${tasks}">
+						<td style="width: 39%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" th:text="${task.title}">
+							<div class="circle"></div> 
+    						<span th:text="${task.title}"></span>
+						</td>
+						<td style="width: 1%;"></td>
+						<td style="width: 39%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" th:text="${task.description}"></td>
+						<td style="width: 1%;"></td>
+						<td style="width: 10%;" th:text="${task.dueDate}"></td>
+						<td style="width: 5%; display: flex; justify-content: center;"><form th:action="@{/modify/task/{id}(id = ${task.id})}" method="get">
 							<button class="edit-task-button" type="submit"><img src="/src/edit_icon.png" alt="edit task icon"></button>
 						</form></td>
-						<td style="width: 5%;"><form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+						<td style="width: 5%; display: flex; justify-content: center;"><form th:action="@{/delete/task/{id}(id = ${task.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
 							<button class="delete-task-button" type="submit"><img src="/src/delete_task_icon.png" alt="delete task"></button> 
 						</form></td>
 					</tr>
