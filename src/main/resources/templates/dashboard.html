@@ -13,54 +13,64 @@
 			justify-content: center;
 			flex-direction: column;
 			height: 100%;
+			min-height: 100%;
+		}
+
+		#my-task-title{
+			margin-top: 0px;
 		}
 
 		#dashboard-container{
 			display: flex;
-			align-items: center;
 			flex-direction: column;
+			justify-content: center;
 			width: 900px;
-			margin: 10px, 10px;
+			height: 200%;
+			padding-top: 10px;
+			padding-left: 10px;
+			padding-right: 10px;
 			background-color: white;
+			border-radius: 5px;
 		}
 
 		#dashboard-box1{
 			display: flex;
 			justify-content: space-between;
 			flex-direction: row;
+			
 		}
 
 		.action-buttons {
 			height: 35px;
 			width: 130px;
-			border-radius: 3px;
-			display: inline-block;
+			border-radius: 5px;
+			border-style: none;
 			text-align: center;
 			justify-content: center;
+			cursor: pointer;
+			outline: none;
+			background-color: #21C3FC;
+			color: white;
 		}
 
 		#delete-all-button {
 			background-color: red;
-			color: white;
-			height: 35px;
-			width: 130px;
-			border-radius: 3px;
-			display: inline-block;
-			text-align: center;
-			justify-content: center;
 			
 		}
 
-		#add-task-button {
-			background-color: #21C3FC;
-			color: white;
-		}
-		
-		.button-container {
+		.box1-button-container {
 			display: flex;
 			flex-direction: row;
+			align-items: flex-start;
+			justify-content: space-between;
+
 		}
 
+		li {
+			display: flex;
+			flex-direction: row;
+
+		}
 
 		.alert {
 		    padding: 15px;
@@ -75,23 +85,6 @@
 		}
 	</style>
 
-	<!-- <script>
-		const addTaskModal = document.querySelector('.add-task-modal-container');
-		const openAddTaskModal = document.querySelector('#open-add-task-modal');
-		const closeAddTaskModal = document.querySelector('#close-add-task-modal')
-
-		openAddTaskModal.addEventListener('click', () => {
-			console.log("Did the thing open?")
-			addTaskModal.classList.remove('hidden');
-			console.log('Should show modal')
-		})
-
-		closeAddTaskModal.addEventListener('click', () => {
-			console.log("Did the thing close?")
-			addTaskModal.classList.add('hidden');
-			console.log('Should hide modal');
-		})
-	</script> -->
 	<script>
 		function show_add_task_form() {
 			const add_task_form = document.getElementById("add-task-modal-container")
@@ -121,18 +114,15 @@
 
 	<div id="dashboard-container">
 
-
-	
-
 		<div id="dashboard-box1">
 
-			<h2>My Task:</h2>
+			<h2 id="my-task-title">My Task:</h2>
 
-			<div class="button-container">
+			<div class="box1-button-container">
 
 			
-				<form th:action="@{/delete_all_tasks}" method="post" class="action-buttons delete-all-tasks-modal-form" id="delete-all-button" onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
-					<button type="submit">Delete All Tasks</button> 
+				<form th:action="@{/delete_all_tasks}" method="post" class="action-buttons delete-all-tasks-modal-form"  onsubmit="return confirm('This will permantly delete all of your tasks. Are you sure?')">
+					<button class="action-buttons" id="delete-all-button" type="submit">Delete All Tasks</button> 
 				</form>
 
 				<button type="button" onclick="show_add_task_form()" class="action-buttons" id="open-add-task-modal add-task-button">+ Add Task</button>
@@ -146,13 +136,13 @@
 		<h3>Late Tasks!</h3>
 		<ul>
 		<li th:each="latetask : ${latetasks}">
-		<span th:text="${latetask.title + ' - ' + latetask.description + ' - ' + latetask.dueDate}"></span>
-		<form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
-			<button type="submit">Edit</button>
-		</form>
-		<form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
-			<button type="submit">Delete</button> 
-		</form>
+			<span th:text="${latetask.title + ' - ' + latetask.description + ' - ' + latetask.dueDate}"></span>
+			<form th:action="@{/modify/task/{id}(id = ${latetask.id})}" method="get">
+				<button type="submit">Edit</button>
+			</form>
+			<form th:action="@{/delete/task/{id}(id = ${latetask.id})}" method="post" class="delete-task-modal-form" onsubmit="return confirm('This will permantly delete this task. Are you sure?')">
+				<button type="submit">Delete</button> 
+			</form>
 		</li>
 		</ul>
 		<h3>Current Tasks</h3>
