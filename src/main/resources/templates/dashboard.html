@@ -370,12 +370,13 @@
 
 
 					<label for="taskName">Task Name</label>
-					<input type="text" id="taskName" name="title" placeholder="Name of Task" required>
+					<input type="text" id="taskName" name="title" placeholder="Name of Task" maxlength="250" required>
 		
 					<label for="taskDescription">Task Description</label>
 					<textarea 
 						id="taskDescription" 
 						name="description" 
+						maxlength="250" 
 						placeholder="Enter task description..."
 						rows="5"
 						required

@@ -14,12 +14,13 @@
    
             			
 						<label for="taskName">Task Name</label>
-						<input type="text" id="taskName" name="title" th:value="${task.getTitle()}" required>
+						<input type="text" id="taskName" name="title" th:value="${task.getTitle()}" maxlength="250" required>
 
 						<label for="taskDescription">Task Description</label>
 						<textarea 
 							id="taskDescription" 
 							name="description" 
+							maxlength="250" 
 							th:text="${task.getDescription()}"
 							rows="5"
 							required
