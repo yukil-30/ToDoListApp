@@ -17,41 +17,43 @@
 
         <h2 id="app-name">Get It Done</h2>
 
-        <h1 id="welcome-text">Welcome</h1>
+        <h1 id="welcome-text">Welcome Back</h1>
 
 
-            <form id="login-form-container" action="/login" method="post">
+        <form id="login-form-container" action="/login" method="post">
 
-                <div class="input-container">
+            <div class="input-container">
 
-                    <label for="email">Your email</label>
-                    <input type="text" text="email" id="email" name="email" required>
+                <label for="email">Your email</label>
+                <input type="text" text="email" id="email" name="email" required>
 
-                </div>
+            </div>
+
+
+            <div class="input-container">
+                <label for="password">Your password</label>
+                <input type="text" text="password" id="password" name="password" required>
+            </div>
     
-
-                <div class="input-container">
-                    <label for="password">Your password</label>
-                    <input type="text" text="password" id="password" name="password" required>
-                </div>
-        
-                
-                <div class="button-container">
-
-                    <a href="/register"><button id="register" type="button">New?</button></a>
-
-                    <button type="submit" id="login">Login</button>
-
-                </div>
-        
             
+            <div class="button-container">
+
+                <a href="/register"><button id="register" type="button">New?</button></a>
+
+                <button type="submit" id="login">Login</button>
+
+            </div>
+    
         
-            </form>
+    
+        </form>
+
+        <p th:if="${error}" style="color: red;">Error: <span th:text="${error}"></span></p>
 
     </div>
-    
 
-    <p th:if="${error}" style="color: red;">Error: <span th:text="${error}"></span></p>
+
+    
 
 
 </body>
