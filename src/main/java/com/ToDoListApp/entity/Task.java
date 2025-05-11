@@ -26,12 +26,12 @@ import jakarta.persistence.Table;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO) //used to specify a task
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false) // user_id refers to users.id
-    private User user;
+    @ManyToOne //the link between task and user
+    @JoinColumn(name="user_id", nullable=false) // user_id refers to the user's uuid generated 
+    private User user; 
 
     @Column(nullable=false)
     private String title;
@@ -54,21 +54,21 @@ public class Task {
     private LocalDateTime updatedAt;
 
 
-    // Constructor (no argument)
+    // Constructor (no argument) we kinda dont need a bunch of these but already made them lol
     public Task() {}
 
-    // Constructor (w/o user, w/o description)
+    // Constructor (without user, without description)
     public Task(String title) {
         this.title = title;
     }
 
-    // Constructor (w/o user)
+    // Constructor (without user)
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    // Constructor (with user, w/o description)
+    // Constructor (with user without description)
     public Task(User user, String title) {
     	this.user = user;
         this.title = title;

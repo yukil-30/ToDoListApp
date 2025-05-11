@@ -32,7 +32,7 @@ public class TaskController {
     @Autowired
     public TaskService taskService;
 
-    // posting to different thing without actually being a html thing users can access
+    // posting to different thing without actually being a page users can access
     @PostMapping("/tasks")
     @Transactional
     public String handleTaskSubmission(@RequestParam String title,@RequestParam String description, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, RedirectAttributes redirectAttributes) {
@@ -41,10 +41,9 @@ public class TaskController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
     	//This saves the task to database by creating it
-        Task task = new Task(user, title, description, duedate); //im pretty sure the created/modify time is autodone? and idk about id
+        Task task = new Task(user, title, description, duedate);
         user.addTask(task);
         taskRepository.save(task);
-        //userRepository.save(user); //cause of cascading we can save the user again
         
         // Redirect back to dashboard
         redirectAttributes.addFlashAttribute("message", "Task added successfully!");
@@ -58,44 +57,46 @@ public class TaskController {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.getTasks().clear();
+        
+        user.getTasks().clear(); //clearing the user objects list of tasks and saving
         userRepository.save(user);
-        //taskRepository.deleteByUser(user); //clearing the user.gettasks.clear would be slower so instead do this
+
         redirectAttributes.addFlashAttribute("message", "All Tasks Deleted Successfully!");
         return MakeDashboardURL(user);
     }
     
     @Transactional
-    @PostMapping("/delete/task/{id}")
+    @PostMapping("/delete/task/{id}") //id is a var that the html specifies as the task object they're on's id
     public String deleteOneTask(@PathVariable UUID id, HttpSession session, RedirectAttributes redirectAttributes){
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
+        
         int taskSize = user.getTasks().size();
         String name = "";
-        for(int i = 0; i < taskSize; i++) {
+        for(int i = 0; i < taskSize; i++) { //go through list find the task with the same id as the provided task url and delete it
         	if(user.getTasks().get(i).getId().equals(id)) {
-        		name = user.getTasks().get(i).getTitle();
+        		name = user.getTasks().get(i).getTitle(); 
         		user.getTasks().remove(i);
         		break;
         	}
         }
-        userRepository.save(user);
+        userRepository.save(user); //save the user stuff
         redirectAttributes.addFlashAttribute("message", "The Task " + name + " was Deleted Successfully!");
         return MakeDashboardURL(user);
     }
 
     
-    @GetMapping("/modify/task/{id}")
+    @GetMapping("/modify/task/{id}")// this is a get so, just setting up the modify page for the user 
 	public String updateModifiedtask(@PathVariable UUID id, HttpSession session, Model model) {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         int taskSize = user.getTasks().size();
-        for(int i = 0; i < taskSize; i++) {
+        for(int i = 0; i < taskSize; i++) { //go through list
         	if(user.getTasks().get(i).getId().equals(id)) {
-        		model.addAttribute("task", user.getTasks().get(i));
+        		model.addAttribute("task", user.getTasks().get(i)); //add the wanted task to the model so the html can use it 
         		break;
         	}
         }
@@ -106,7 +107,7 @@ public class TaskController {
 
 
     @Transactional
-    @PostMapping("/modify/task/{id}")
+    @PostMapping("/modify/task/{id}") //modify task form is completed
 	public String modifyTasks(@PathVariable UUID id, @RequestParam String title,@RequestParam String description, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate duedate, HttpSession session, Model model) {
         String email = (String) session.getAttribute("email");
         User user = userRepository.findByEmail(email)
@@ -120,7 +121,7 @@ public class TaskController {
         		break;
         	}
         }
-        task.setTitle(title);
+        task.setTitle(title); //set the new stuff
         task.setDueDate(duedate);
         task.setDescription(description);
         
