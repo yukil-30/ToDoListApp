@@ -77,13 +77,6 @@ public class UserController {
         }
 
         userService.createUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
-        // wouldnt it make sense to return the custom url created? cause you're creating the account and sending them to their created dashboard
-        /*      session.setAttribute("email", email);
-
-                // Build the redirect URL using first and last name
-                String customURL = "/" + user.getFirstName().toLowerCase() + "_" + user.getLastName().toLowerCase() + "/dashboard";
-                return "redirect:" + customURL;
-	*/
         return "login";
     }
 
@@ -131,29 +124,6 @@ public class UserController {
 
 
 
-
-        // // Parse username back into first and last name
-        // String[] names = username.split("_");
-        // if (names.length != 2) return "error"; // fallback error view
-        // System.out.println("Dashboard route hit for: " + username);
-
-        // String firstName = names[0];
-        // String lastName = names[1];
-
-        // // Find user by first and last name (make sure you have this query method)
-        // Optional<User> userOpt = userRepository.findByFirstNameAndLastName(firstName, lastName);
-        // Optional<User> userEmail = userRepository.findByEmail()
-        // if (userOpt.isPresent()) {
-        //     User user = userOpt.get();
-        //     List<Task> tasks = user.getTasks();  // Assuming `getTasks()` returns user's tasks
-
-        //     model.addAttribute("user", user);
-        //     model.addAttribute("tasks", tasks);
-        //     return "dashboard";
-        // }
-        // else {
-        //     System.out.println("No user found with that name.");
-        // }
 
         System.out.println("ERROR!");
         return "error"; // User not found
