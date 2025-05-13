@@ -121,10 +121,6 @@ public class UserController {
         }
     }
 
-
-
-
-
         System.out.println("ERROR!");
         return "error"; // User not found
 
